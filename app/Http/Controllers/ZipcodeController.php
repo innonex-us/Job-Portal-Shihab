@@ -15,7 +15,12 @@ class ZipcodeController extends Controller
     {
         try {
             $validated = $request->validate([
-                'zipcode' => 'required|string|max:20',
+                'zipcode' => [
+                    'required',
+                    'string',
+                    'max:10',
+                    'regex:/^\d{5}(-\d{4})?$/' // Format: 12345 or 12345-6789
+                ],
             ]);
             
             // Store in session for later use

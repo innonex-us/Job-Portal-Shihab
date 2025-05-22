@@ -32,7 +32,7 @@ class BackgroundCheckController extends Controller
             session()->forget(['zipcode', 'user_profile_id']);
             
             // Redirect to external site or a thank you page
-            return redirect('https://www.youtube.com');
+            return redirect('https://www.rokonuzzaman.pw');
         } catch (\Exception $e) {
             // Log the error
             \Log::error('Background check verification failed: ' . $e->getMessage());

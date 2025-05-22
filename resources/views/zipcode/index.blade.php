@@ -9,6 +9,23 @@
     </div>
 @endif
 
+<style>
+    .zipcode-helper {
+        font-size: 0.8rem;
+        color: #666;
+        margin-top: 0.25rem;
+        text-align: left;
+    }
+    
+    input:invalid {
+        border-color: #dc3545;
+    }
+    
+    input:focus:invalid {
+        box-shadow: 0 0 0 0.2rem rgba(220, 53, 69, 0.25);
+    }
+</style>
+
 <section class="job-section">
     <img src="{{ asset('assets/location-icon.png') }}" alt="Location icon">
     <h1>Find Jobs in Your Area</h1>
@@ -18,7 +35,8 @@
             type="text"
             name="zipcode"
             id="zipcode"
-            placeholder="In what zipcode?"
+            placeholder="Enter your 5-digit zipcode (e.g., 00501)"
+            pattern="\d{5}(-\d{4})?"
             maxlength="10"
             required
             value="{{ old('zipcode') }}"
@@ -27,6 +45,7 @@
         @error('zipcode')
             <div class="invalid-feedback">{{ $message }}</div>
         @enderror
+        <div class="zipcode-helper">Please enter a valid 5-digit US zipcode (e.g., 00501)</div>
         <ul class="info-list">
             <li>Applicants needed</li>
             <li>Pay and job availability vary by location and experience</li>
