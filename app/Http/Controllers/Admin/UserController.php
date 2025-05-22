@@ -30,4 +30,39 @@ class UserController extends Controller
         $user->delete();
         return redirect()->route('admin.users.index')->with('success', 'User deleted successfully');
     }
+    
+    /**
+     * Toggle user verification status
+     *
+     * @param int $id
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function toggleVerification($id)
+    {
+        $user = \App\Models\UserProfile::findOrFail($id);
+        
+        // Check if user already has a background check
+        $backgroundCheck = $user->backgroundCheck;
+        
+        if ($backgroundCheck) {
+            // Toggle status
+            $backgroundCheck->verified = !$backgroundCheck->verified;
+            $backgroundCheck->verification_date = $backgroundCheck->verified ? now() : null;
+            $backgroundCheck->save();
+            
+            $status = $backgroundCheck->verified ? 'verified' : 'pending';
+            $message = "User verification status changed to {$status}";
+        } else {
+            // Create new background check record
+            \App\Models\BackgroundCheck::create([
+                'user_profile_id' => $user->id,
+                'verified' => true,
+                'verification_date' => now(),
+            ]);
+            
+            $message = 'User marked as verified';
+        }
+        
+        return redirect()->route('admin.users.show', $id)->with('success', $message);
+    }
 }

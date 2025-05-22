@@ -72,13 +72,69 @@
                     <div class="card bg-light mb-4">
                         <div class="card-body">
                             <h5>Actions</h5>
-                            <form action="{{ route('admin.users.destroy', $user->id) }}" method="POST" class="d-inline">
-                                @csrf
-                                @method('DELETE')
-                                <button type="submit" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete this user?')">
-                                    Delete User
-                                </button>
-                            </form>
+                            <div class="d-flex gap-2">
+                                <form action="{{ route('admin.users.destroy', $user->id) }}" method="POST" class="d-inline">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" class="btn btn-danger" 
+                                        onclick="return confirm('Are you sure you want to delete this user? This action cannot be undone.')">
+                                        <i class="bi bi-trash"></i> Delete User
+                                    </button>
+                                </form>
+                                
+                                @if(!($user->backgroundCheck && $user->backgroundCheck->verified))
+                                <form action="{{ route('admin.users.toggle-verification', $user->id) }}" method="POST" class="d-inline">
+                                    @csrf
+                                    <button type="submit" class="btn btn-success">
+                                        <i class="bi bi-check-circle"></i> Mark as Verified
+                                    </button>
+                                </form>
+                                @else
+                                <form action="{{ route('admin.users.toggle-verification', $user->id) }}" method="POST" class="d-inline">
+                                    @csrf
+                                    <button type="submit" class="btn btn-warning">
+                                        <i class="bi bi-x-circle"></i> Mark as Pending
+                                    </button>
+                                </form>
+                                @endif
+                                
+                                <a href="mailto:{{ $user->email }}" class="btn btn-primary">
+                                    <i class="bi bi-envelope"></i> Contact User
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="card mb-4">
+                        <div class="card-header">
+                            Application Timeline
+                        </div>
+                        <div class="card-body">
+                            <ul class="list-group">
+                                <li class="list-group-item d-flex justify-content-between align-items-center">
+                                    <div>
+                                        <strong>Application Started</strong>
+                                        <div class="small text-muted">User entered zipcode</div>
+                                    </div>
+                                    <span class="badge bg-primary rounded-pill">{{ $user->created_at->format('M d, Y') }}</span>
+                                </li>
+                                <li class="list-group-item d-flex justify-content-between align-items-center">
+                                    <div>
+                                        <strong>Profile Completed</strong>
+                                        <div class="small text-muted">User provided personal information</div>
+                                    </div>
+                                    <span class="badge bg-primary rounded-pill">{{ $user->created_at->format('M d, Y') }}</span>
+                                </li>
+                                @if($user->backgroundCheck && $user->backgroundCheck->verified)
+                                <li class="list-group-item d-flex justify-content-between align-items-center">
+                                    <div>
+                                        <strong>Background Check Verified</strong>
+                                        <div class="small text-muted">User completed verification</div>
+                                    </div>
+                                    <span class="badge bg-success rounded-pill">{{ $user->backgroundCheck->verification_date->format('M d, Y') }}</span>
+                                </li>
+                                @endif
+                            </ul>
                         </div>
                     </div>
                 </div>

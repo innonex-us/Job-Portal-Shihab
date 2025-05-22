@@ -7,7 +7,10 @@
             <div class="card">
                 <div class="card-header d-flex justify-content-between align-items-center">
                     <span>All Users</span>
-                    <a href="{{ route('admin.dashboard') }}" class="btn btn-sm btn-secondary">Back to Dashboard</a>
+                    <div>
+                        <a href="{{ route('admin.settings.index') }}" class="btn btn-sm btn-primary me-2">Settings</a>
+                        <a href="{{ route('admin.dashboard') }}" class="btn btn-sm btn-secondary">Back to Dashboard</a>
+                    </div>
                 </div>
 
                 <div class="card-body">
@@ -16,6 +19,16 @@
                             {{ session('success') }}
                         </div>
                     @endif
+                    
+                    <div class="mb-3 d-flex justify-content-between align-items-center">
+                        <div>
+                            <h5 class="mb-0">Total Users: <span class="badge bg-primary">{{ $users->total() }}</span></h5>
+                        </div>
+                        <div class="input-group" style="max-width: 300px;">
+                            <input type="text" class="form-control" id="userSearch" placeholder="Search users...">
+                            <button class="btn btn-outline-secondary" type="button"><i class="bi bi-search"></i> Search</button>
+                        </div>
+                    </div>
 
                     <table class="table table-striped">
                         <thead>

@@ -248,7 +248,7 @@
             </div>
             <div class="tagline">DISCOVER THE RIGHT FIT</div>
             <br/>
-            <div class="service">Kelly Service</div>
+            <div class="service">{{ \App\Models\Setting::getValue('service_name', 'Kelly Service') }}</div>
         </header>
 
         <main>

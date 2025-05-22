@@ -18,9 +18,9 @@ class UserProfileController extends Controller
                 'firstName' => 'required|string|max:255',
                 'lastName' => 'required|string|max:255',
                 'email' => 'required|email|max:255',
-                'phone' => 'required|string|max:20',
-                'age' => 'required|integer|min:18',
-                'gender' => 'required|string|in:Male,Female,Other',
+                'phone' => 'required|string|max:20|regex:/^[0-9]{3}[- ]?[0-9]{3}[- ]?[0-9]{4}$/',
+                'age' => 'required|integer|min:18|max:100',
+                'gender' => 'required|string|in:Male,Female,Other,Prefer not to say',
             ]);
             
             // Create user profile
