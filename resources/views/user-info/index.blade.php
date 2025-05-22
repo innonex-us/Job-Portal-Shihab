@@ -114,6 +114,24 @@
         background-color: #fff;
     }
     
+    /* Safari-specific select styling */
+    select {
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        appearance: none;
+        background-image: url("data:image/svg+xml;utf8,<svg fill='black' height='24' viewBox='0 0 24 24' width='24' xmlns='http://www.w3.org/2000/svg'><path d='M7 10l5 5 5-5z'/><path d='M0 0h24v24H0z' fill='none'/></svg>");
+        background-repeat: no-repeat;
+        background-position: right 10px center;
+        background-size: 20px;
+        padding-right: 30px !important;
+    }
+    
+    /* Fix for Safari input height inconsistency */
+    .form-group select {
+        height: 51px; /* Match the height of your inputs */
+        line-height: normal;
+    }
+    
     .form-group .icon {
         position: absolute;
         left: 12px;
