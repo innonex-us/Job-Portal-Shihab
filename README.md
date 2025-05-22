@@ -84,4 +84,8 @@ For detailed installation instructions, see [INSTALLATION.md](./INSTALLATION.md)
 
 ## License
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+This project is licensed under the [MIT license](https://opensource.org/licenses/MIT).
+
+---
+
+Created on: May 23, 2025
